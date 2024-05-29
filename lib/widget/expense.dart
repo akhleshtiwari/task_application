@@ -1,5 +1,6 @@
 import 'package:expense_05/widget/expense_list/expenses_list.dart';
 import 'package:expense_05/model/expenses.dart';
+import 'package:expense_05/widget/new_expense.dart';
 import 'package:flutter/material.dart';
 
 class Expenses extends StatefulWidget {
@@ -10,6 +11,10 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
+  void openModalOverlayed() {
+    showModalBottomSheet(context: context, builder: (context) => NewExpense());
+  }
+
   final List<Expense> _registered_expenses = [
     Expense(
         title: "movie",
@@ -24,13 +29,20 @@ class _ExpensesState extends State<Expenses> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text("the chart"),
-        Expanded(
-          child: ExpensesList(expenses: _registered_expenses),
-        ),
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: openModalOverlayed, icon: Icon(Icons.add))
+        ],
+      ),
+      body: Column(
+        children: [
+          Text("the chart"),
+          Expanded(
+            child: ExpensesList(expenses: _registered_expenses),
+          ),
+        ],
+      ),
     );
   }
 }
